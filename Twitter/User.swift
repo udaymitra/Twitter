@@ -8,24 +8,24 @@
 
 import UIKit
 
-var _currentUser: User?
-let CURRENT_USER_KEY = "CURRENT_USER_KEY"
 let userDidLoginNotification = "userDidLoginNotification"
 let userDidLogoutNotification = "userDidLogoutNotification"
 
+private var _currentUser: User?
+private let CURRENT_USER_KEY = "CURRENT_USER_KEY"
+
 // TODO - User class to implement NSCoding
-// TODO - make class vars private with getters
 class User: NSObject {
-    var name: String?
-    var screenName: String?
-    var profileImageUrl: String?
-    var tagline: String?
-    var dictionary: NSDictionary
+    private(set) var name: String?
+    private(set) var screenName: String?
+    private(set) var profileImageUrl: String?
+    private(set) var tagline: String?
+    private(set) var dictionary: NSDictionary
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
  
-        name = dictionary["name"] as? String
+        self.name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
         profileImageUrl = dictionary["profile_image_url"] as? String
         tagline = dictionary["description"] as? String
@@ -82,5 +82,4 @@ class User: NSObject {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
-
 }

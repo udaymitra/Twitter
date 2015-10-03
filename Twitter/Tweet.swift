@@ -9,14 +9,15 @@
 import UIKit
 
 class Tweet: NSObject {
-    struct Static {
-        static var formatter: NSDateFormatter? = nil
+    // static member variable for NSDataFormatter for efficiency
+    private struct Static {
+        private static var formatter: NSDateFormatter? = nil
     }
     
-    var author: User?
-    var text: String?
-    var createdAtString: String?
-    var createdAt: NSDate?
+    private(set) var author: User?
+    private(set) var text: String?
+    private(set) var createdAtString: String?
+    private(set) var createdAt: NSDate?
     
     init(dictionary: NSDictionary) {
         author = User(dictionary: dictionary["user"] as! NSDictionary)
@@ -24,6 +25,7 @@ class Tweet: NSObject {
         createdAtString = dictionary["created_at"] as? String
         
         if (Tweet.Static.formatter == nil) {
+            // initialize only once
             Tweet.Static.formatter = NSDateFormatter()
             Tweet.Static.formatter!.dateFormat = "EEE MM d HH:mm:ss Z y"
         }
@@ -38,5 +40,4 @@ class Tweet: NSObject {
         }
         return tweetArray
     }
-
 }

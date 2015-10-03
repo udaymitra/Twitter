@@ -13,7 +13,7 @@ let twitterConsumerSecret = "1vcFEUJwR0m4YPKozoCvUH3E9TEZ5tiPGR8RGEpHAspmoEBGcL"
 let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1RequestOperationManager {
-    var loginCompletion: ((user: User?, error: NSError?) -> ())?
+    private var loginCompletion: ((user: User?, error: NSError?) -> ())?
     
     class var sharedInstance: TwitterClient {
         struct Static {
@@ -28,8 +28,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             completion(tweets: tweets, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             completion(tweets: nil, error: error)
-        })
-        
+        })        
     }
     
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
@@ -59,8 +58,6 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         }) { (error: NSError!) -> Void in
             loginCompletion?(user: nil, error: error)
         }
-
-        
     }
     
 }
