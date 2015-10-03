@@ -11,6 +11,7 @@ import UIKit
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var user: User!
     var tweetSourcer: TweetSourcer!
+    var refreshControl: UIRefreshControl!
     
     @IBOutlet weak var topBarUIView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -29,9 +30,20 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // load initial tweets
+        getNewTweets()
+        
+        // pull to refresh controller
+        refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: "getNewTweets", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    func getNewTweets() {
         tweetSourcer.loadRecentTweets { (error) -> () in
             if (error == nil) {
                 self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
             } else {
                 print("error getting home timeline: \(error!)")
             }
