@@ -19,6 +19,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // navigation bar icons
+        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
+        let centerTwitterImage = UIImage(named: "Twitter_logo_blue_32.png")
+        self.navigationItem.titleView = UIImageView(image: centerTwitterImage)
+
         // set user
         user = User.currentUser
         tweetSourcer = TweetSourcer(user: user)
@@ -34,7 +39,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // pull to refresh controller
         refreshControl = UIRefreshControl()
-        
         refreshControl.addTarget(self, action: "getNewTweets", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl)
     }
@@ -55,11 +59,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
 
-    
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
     
+    @IBAction func onTweet(sender: AnyObject) {
+        print("Write a new tweet")
+    }
     
     // table view delegate methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
