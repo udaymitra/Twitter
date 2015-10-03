@@ -9,8 +9,8 @@
 import UIKit
 
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var user: User?
-    var tweets: [Tweet]?
+    var user: User!
+    var tweetSourcer: TweetSourcer!
     
     @IBOutlet weak var topBarUIView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -20,6 +20,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // set user
         user = User.currentUser
+        tweetSourcer = TweetSourcer(user: user)
         
         // setup table view
         tableView.delegate = self
@@ -28,7 +29,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.rowHeight = UITableViewAutomaticDimension
         
         // load initial tweets
-        loadHomeTimeline()
+        tweetSourcer.loadRecentTweets { (error) -> () in
+            if (error == nil) {
+                self.tableView.reloadData()
+            } else {
+                print("error getting home timeline: \(error!)")
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,18 +44,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     
-    // user related methods
-    func loadHomeTimeline() {
-        user?.homeTimelineWithParams(nil) { (tweets, error) -> () in
-            if (tweets != nil) {
-                self.tweets = tweets
-                self.tableView.reloadData()
-            } else {
-                print("error getting home timeline: \(error!)")
-            }
-        }
-    }
-
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
@@ -57,12 +52,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // table view delegate methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
-        cell.tweet = tweets![indexPath.row]
+        cell.tweet = self.tweetSourcer.tweets![indexPath.row]
         return cell        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tweets?.count ?? 0
+        return self.tweetSourcer.tweets?.count ?? 0
     }
     
     /*

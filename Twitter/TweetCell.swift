@@ -35,7 +35,6 @@ class TweetCell: UITableViewCell {
         }
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         userProfileImageView.layer.cornerRadius = 3

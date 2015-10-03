@@ -20,6 +20,7 @@ class Tweet: NSObject {
     private(set) var createdAt: NSDate?
     private(set) var favoriteCount: Int?
     private(set) var retweetCount: Int?
+    private(set) var idString: String?
     
     init(dictionary: NSDictionary) {
         author = User(dictionary: dictionary["user"] as! NSDictionary)
@@ -35,6 +36,7 @@ class Tweet: NSObject {
         
         favoriteCount = dictionary["favorite_count"] as? Int
         retweetCount = dictionary["retweet_count"] as? Int
+        idString = dictionary["id_str"] as? String
     }
     
     class func parseTweets(array: [NSDictionary]) -> [Tweet] {

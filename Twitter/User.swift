@@ -31,8 +31,6 @@ class User: NSObject {
         if (lowQualityProfileImageUrl != nil) {
             let profileImageUrlString = User.getHighQualityProfileImageUrl(lowQualityProfileImageUrl!)
             profileImageUrl = NSURL(string: profileImageUrlString)
-            
-            print(profileImageUrl)
         }
         tagline = dictionary["description"] as? String
     }
@@ -47,7 +45,7 @@ class User: NSObject {
     }
     
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: completion)
+        TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: completion)
     }
     
     func logout() {
