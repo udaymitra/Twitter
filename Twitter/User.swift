@@ -18,19 +18,33 @@ private let CURRENT_USER_KEY = "CURRENT_USER_KEY"
 class User: NSObject {
     private(set) var name: String?
     private(set) var screenName: String?
-    private(set) var profileImageUrl: String?
+    private(set) var profileImageUrl: NSURL?
     private(set) var tagline: String?
     private(set) var dictionary: NSDictionary
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
  
-        self.name = dictionary["name"] as? String
+        name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
-        profileImageUrl = dictionary["profile_image_url"] as? String
+        let lowQualityProfileImageUrl = dictionary["profile_image_url"] as? String
+        if (lowQualityProfileImageUrl != nil) {
+            let profileImageUrlString = User.getHighQualityProfileImageUrl(lowQualityProfileImageUrl!)
+            profileImageUrl = NSURL(string: profileImageUrlString)
+            
+            print(profileImageUrl)
+        }
         tagline = dictionary["description"] as? String
     }
     
+    class func getHighQualityProfileImageUrl(profileUrl: String) -> String {
+        var outUrl = profileUrl
+        let range = outUrl.rangeOfString("_normal", options: .RegularExpressionSearch)
+        if let range = range {
+            outUrl = outUrl.stringByReplacingCharactersInRange(range, withString: "_bigger")
+        }
+        return outUrl
+    }
     
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: completion)

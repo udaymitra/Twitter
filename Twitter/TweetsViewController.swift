@@ -8,40 +8,63 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var user: User?
     var tweets: [Tweet]?
     
+    @IBOutlet weak var topBarUIView: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set user
         user = User.currentUser
         
-        user?.homeTimelineWithParams(nil) { (tweets, error) -> () in
-            if (tweets != nil) {
-                self.tweets = tweets
-                // reload table
-                for tweet in self.tweets! {
-                    print("tweet: \(tweet.text!), created: \(tweet.createdAt)")
-                }
-            } else {
-                print("error getting home timeline: \(error!)")
-            }
-        }
+        // setup table view
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
         
-        
-        // tweet.favorite will do a POST
-
+        // load initial tweets
+        loadHomeTimeline()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
-    @IBAction func onLogoutTap(sender: AnyObject) {
-        User.currentUser?.logout()
+    // user related methods
+    func loadHomeTimeline() {
+        user?.homeTimelineWithParams(nil) { (tweets, error) -> () in
+            if (tweets != nil) {
+                self.tweets = tweets
+                self.tableView.reloadData()
+            } else {
+                print("error getting home timeline: \(error!)")
+            }
+        }
     }
 
+    @IBAction func onLogout(sender: AnyObject) {
+        User.currentUser?.logout()
+    }
+    
+    
+    // table view delegate methods
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        cell.tweet = tweets![indexPath.row]
+        return cell        
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tweets?.count ?? 0
+    }
+    
     /*
     // MARK: - Navigation
 

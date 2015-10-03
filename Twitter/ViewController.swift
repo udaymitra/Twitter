@@ -24,6 +24,7 @@ class ViewController: UIViewController {
             if (user != nil) {
                 self.performSegueWithIdentifier("loginSegue", sender: self)
             } else {
+                // TODO: show pop up
                 print("error getting user: \(error)")
             }
         }        
