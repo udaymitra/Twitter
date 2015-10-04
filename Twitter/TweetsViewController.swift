@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate {
     var user: User!
     var tweetSourcer: TweetSourcer!
     var refreshControl: UIRefreshControl!
@@ -64,7 +64,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func onTweet(sender: AnyObject) {
-        print("Write a new tweet")
+        self.performSegueWithIdentifier("newTweetSegue", sender: self)
     }
     
     // table view delegate methods
@@ -78,14 +78,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return self.tweetSourcer.tweets?.count ?? 0
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // New Tweet Delegate
+    func newTweetCreated(tweet: Tweet?, error: NSError?) {
+        if (tweet != nil) {
+            tweetSourcer.addTweetAtTheBeginning(tweet!)
+            self.tableView.reloadData()
+        } else {
+            print("Error creating tweet")
+        }
     }
-    */
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if (segue.identifier == "newTweetSegue") {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let newTweetViewController = navigationController.viewControllers[0] as! NewTweetViewController
+            newTweetViewController.delegate = self
+        }
+    }    
 }

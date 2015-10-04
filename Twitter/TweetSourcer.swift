@@ -40,4 +40,13 @@ class TweetSourcer: NSObject {
             completion(error: error)
         })
     }
+    
+    func addTweetAtTheBeginning(tweet: Tweet) {
+        if (tweets != nil) {
+            tweets!.insert(tweet, atIndex: 0)
+        } else {
+            tweets = [Tweet]()
+            tweets!.append(tweet)
+        }
+    }
 }

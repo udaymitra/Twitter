@@ -48,6 +48,10 @@ class User: NSObject {
         TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: completion)
     }
     
+    func postTweet(parameters: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.postTweet(parameters, completion: completion)
+    }
+    
     func logout() {
         User.currentUser = nil
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
