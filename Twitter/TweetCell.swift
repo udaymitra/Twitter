@@ -10,18 +10,18 @@ import UIKit
 
 class TweetCell: UITableViewCell {
     
-    @IBOutlet weak var userProfileImageView: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var screenNameLabel: UILabel!
-    @IBOutlet weak var tweetTimeLabel: UILabel!
+    @IBOutlet weak private var userProfileImageView: UIImageView!
+    @IBOutlet weak private var userNameLabel: UILabel!
+    @IBOutlet weak private var screenNameLabel: UILabel!
+    @IBOutlet weak private var tweetTimeLabel: UILabel!
     
-    @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak private var tweetTextLabel: UILabel!
     
-    @IBOutlet weak var replyImageView: UIImageView!
-    @IBOutlet weak var retweetImageView: UIImageView!
-    @IBOutlet weak var favoriteImageView: UIImageView!
-    @IBOutlet weak var retweetCountLabel: UILabel!
-    @IBOutlet weak var favoriteCountLabel: UILabel!
+    @IBOutlet weak private var replyImageView: UIImageView!
+    @IBOutlet weak private var retweetImageView: UIImageView!
+    @IBOutlet weak private var favoriteImageView: UIImageView!
+    @IBOutlet weak private var retweetCountLabel: UILabel!
+    @IBOutlet weak private var favoriteCountLabel: UILabel!
     
     var tweet: Tweet! {
         didSet {
@@ -32,6 +32,12 @@ class TweetCell: UITableViewCell {
             tweetTextLabel.text = tweet.text
             favoriteCountLabel.text = "\(tweet.favoriteCount!)"
             retweetCountLabel.text = "\(tweet.retweetCount!)"
+            
+            let retweetImageToShow = (tweet!.didUserRetweet) ? "retweet_on" : "retweet"
+            retweetImageView.image = UIImage(named: retweetImageToShow)
+            
+            let favoriteImageToShow = (tweet!.didUserFavorite) ? "favorite_on" : "favorite"
+            favoriteImageView.image = UIImage(named: favoriteImageToShow)
         }
     }
     

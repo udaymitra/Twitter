@@ -21,6 +21,19 @@ class Tweet: NSObject {
     private(set) var favoriteCount: Int?
     private(set) var retweetCount: Int?
     private(set) var idString: String?
+    var didUserRetweet = false {
+        didSet {
+            let increment = didUserRetweet ? 1 : -1
+            retweetCount = retweetCount! + increment
+        }
+    }
+    
+    var didUserFavorite = false {
+        didSet {
+            let increment = didUserFavorite ? 1 : -1
+            favoriteCount = favoriteCount! + increment
+        }
+    }
     
     init(dictionary: NSDictionary) {
         author = User(dictionary: dictionary["user"] as! NSDictionary)

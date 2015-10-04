@@ -36,7 +36,8 @@ class TweetSourcer: NSObject {
                     self.tweets = newTweets
                 } else {
                     newTweets!.appendContentsOf(self.tweets!)
-                    newTweets = Array(newTweets![0..<TWEET_FETCH_BATCH_SIZE])
+                    let maxTweets = min(self.tweets!.count, TWEET_FETCH_BATCH_SIZE)
+                    newTweets = Array(newTweets![0..<maxTweets])
                     self.tweets = newTweets
                 }
             }

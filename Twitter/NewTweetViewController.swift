@@ -12,9 +12,9 @@ import UIKit
     optional func newTweetCreated(tweet: Tweet?, error: NSError?)
 }
 
+let twitterBlue = UIColor(red: 70/255.0, green: 154/255.0, blue: 233/255.0, alpha: 1)
+
 class NewTweetViewController: UIViewController, UITextViewDelegate {
-    let twitterBlue = UIColor(red: 70/255.0, green: 154/255.0, blue: 233/255.0, alpha: 1)
-    
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var tweetButton: UIButton!
     @IBOutlet weak var numCharactersLeftLabel: UILabel!

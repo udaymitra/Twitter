@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate, TweetDetailDelegate {
     var user: User!
     var tweetSourcer: TweetSourcer!
     var refreshControl: UIRefreshControl!
-    var fetchOlderTweetsInProgress = false;
+    var fetchOlderTweetsInProgress = false
+    var currentTweetIndexPath: NSIndexPath!
     
     @IBOutlet weak var topBarUIView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -95,6 +96,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return self.tweetSourcer.tweets?.count ?? 0
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.currentTweetIndexPath = indexPath
+        self.performSegueWithIdentifier("tweetDetailSegue", sender: self)
+    }
+    
     // New Tweet Delegate
     func newTweetCreated(tweet: Tweet?, error: NSError?) {
         if (tweet != nil) {
@@ -105,12 +111,23 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // Tweet detail view delegate
+    func didReturnFromTweetDetail(currentTweetIndexPath: NSIndexPath) {
+        tableView.reloadRowsAtIndexPaths([currentTweetIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
+        let navigationController = segue.destinationViewController as! UINavigationController
+
         if (segue.identifier == "newTweetSegue") {
-            let navigationController = segue.destinationViewController as! UINavigationController
             let newTweetViewController = navigationController.viewControllers[0] as! NewTweetViewController
             newTweetViewController.delegate = self
+        } else if (segue.identifier == "tweetDetailSegue") {
+            let tweetDetailViewController = navigationController.viewControllers[0] as! TweetDetailViewController
+            tweetDetailViewController.tweet = tweetSourcer.tweets![currentTweetIndexPath.row]
+            tweetDetailViewController.currentTweetIndexPath = currentTweetIndexPath
+            tweetDetailViewController.delegate = self
         }
     }    
 }
