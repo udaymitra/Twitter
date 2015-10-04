@@ -12,6 +12,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var user: User!
     var tweetSourcer: TweetSourcer!
     var refreshControl: UIRefreshControl!
+    var fetchOlderTweetsInProgress = false;
     
     @IBOutlet weak var topBarUIView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -71,6 +72,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         cell.tweet = self.tweetSourcer.tweets![indexPath.row]
+        
+        // INFINITE SCROLL
+        // check if we should load more older tweets
+        if (!fetchOlderTweetsInProgress &&
+            indexPath.row > self.tweetSourcer.tweets!.count - THRESHOLD_TO_FETCH_OLDER_TWEETS) {
+                fetchOlderTweetsInProgress = true
+                tweetSourcer.loadOlderTweets({ (error) -> () in
+                    if (error == nil) {
+                        self.tableView.reloadData()
+                    } else {
+                        print("Error loading older tweets")
+                    }
+                    self.fetchOlderTweetsInProgress = false
+                })
+        }
+        
         return cell        
     }
     

@@ -8,8 +8,10 @@
 
 import UIKit
 
+let TWEET_FETCH_BATCH_SIZE = 20
+let THRESHOLD_TO_FETCH_OLDER_TWEETS = 5
+
 class TweetSourcer: NSObject {
-    let TWEET_FETCH_BATCH_SIZE = 20
     
     private(set) var user: User?
     private(set) var tweets: [Tweet]?
@@ -34,6 +36,7 @@ class TweetSourcer: NSObject {
                     self.tweets = newTweets
                 } else {
                     newTweets!.appendContentsOf(self.tweets!)
+                    newTweets = Array(newTweets![0..<TWEET_FETCH_BATCH_SIZE])
                     self.tweets = newTweets
                 }
             }
@@ -48,5 +51,22 @@ class TweetSourcer: NSObject {
             tweets = [Tweet]()
             tweets!.append(tweet)
         }
+    }
+    
+    func loadOlderTweets(completion: (error: NSError?) -> ()) {
+        var parameters = [String : AnyObject]()
+        parameters["count"] = TWEET_FETCH_BATCH_SIZE
+        let lastTweetId = tweets?.last?.idString!
+        parameters["max_id"] = lastTweetId
+        user?.homeTimelineWithParams(parameters, completion: { (newTweets, error) -> () in
+            if (newTweets != nil) {
+                for tweet in newTweets! {
+                    if (tweet.idString! != lastTweetId ) {
+                        self.tweets!.append(tweet)
+                    }
+                }
+            }
+            completion(error: error)
+        })
     }
 }
