@@ -92,7 +92,7 @@ class TweetDetailViewController: UIViewController, NewTweetCreatedDelegate {
                 }
             })
         } else {
-            // TODO : Un retweet
+            // Un-retweet
             User.currentUser?.unRetweet(tweet, completion: { (error) -> () in
                 if (error != nil) {
                     print("Error Un-retweeting")
