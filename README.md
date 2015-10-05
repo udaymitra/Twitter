@@ -2,9 +2,11 @@
 
 Twitter client implementation in swift
 
+Implemented all the mandatory and optional requirements for the project
+
 Time spent > 20 hours
 
-### Implemented the following
+### Implemented the following:
 - User can sign in using OAuth login flow
 - User can view last 20 tweets from their home timeline
 - The current signed in user will be persisted across restarts
@@ -19,3 +21,13 @@ Time spent > 20 hours
 - Optional: Replies are prefixed with the username
   - in_reply_to_status_id is set when posting the tweet.
 - Optional: User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+
+### Walkthrough:
+
+![alt tag](https://github.com/udaymitra/Twitter/blob/master/walkthrough.gif)
+
+### Credits
+
+* [Twitter API](https://dev.twitter.com/rest/public)
+* [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+* [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager)
