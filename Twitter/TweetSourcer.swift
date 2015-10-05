@@ -28,8 +28,6 @@ class TweetSourcer: NSObject {
             parameters["since_id"] = tweets?.first?.idString!
         }
         
-//        print("parameters: \(parameters)")
-        
         user?.homeTimelineWithParams(parameters, completion: { (var newTweets, error) -> () in
             if (newTweets != nil) {
                 if (self.tweets == nil) {

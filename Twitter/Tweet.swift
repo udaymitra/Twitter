@@ -60,7 +60,6 @@ class Tweet: NSObject {
         var tweetArray = [Tweet]()
         for dict in array {
             tweetArray.append(Tweet(dictionary: dict))
-            print("DICTIONARY = \(dict)")
         }
         return tweetArray
     }
