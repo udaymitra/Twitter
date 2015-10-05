@@ -14,7 +14,10 @@ Time spent > 20 hours
 - User can pull to refresh
 - User can compose a new tweet by tapping on a compose button.
 - User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
+  - images for retweet, favorite and reply change when user interacts with them
 - Optional: When composing, character countdown for tweet limit is shown.
+  - tweet button becomes inactive if the message is too long
+  - display's error message when the tweet is long
 - Optional: After creating a new tweet, a user can view it in the timeline immediately without refetching the timeline from the network.
 - Optional: Retweeting and favoriting increments the retweet and favorite count.
 - Optional: User can unretweet and unfavorite. That decrements the retweet and favorite count.
