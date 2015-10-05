@@ -20,6 +20,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var numCharactersLeftLabel: UILabel!
     
     weak var delegate: NewTweetCreatedDelegate?
+    var tweetReplyingTo: Tweet?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,14 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     
     // UI treatment
     func showPlaceholderText() {
-        tweetTextView.text = "What's happening?"
-        tweetTextView.textColor = UIColor.lightGrayColor()
+        if (tweetReplyingTo == nil) {
+            tweetTextView.text = "What's happening?"
+            tweetTextView.textColor = UIColor.lightGrayColor()
+        } else {
+            tweetTextView.text = "@\(tweetReplyingTo!.author!.screenName!) "
+            tweetTextView.textColor = UIColor.blackColor()
+
+        }
     }
     
     func clearPlaceholderText() {
@@ -71,6 +78,10 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     @IBAction func onTweet(sender: AnyObject) {
         var parameters = [String : AnyObject]()
         parameters["status"] = tweetTextView.text
+        if (tweetReplyingTo != nil) {
+            // in case of reply to tweet we need to include the origin tweet's ID
+            parameters["in_reply_to_status_id"] = tweetReplyingTo!.idString!
+        }
         User.currentUser?.postTweet(parameters, completion: { (tweet, error) -> () in
             // call the delegate method to notify of new tweet created
             self.delegate?.newTweetCreated!(tweet, error: error)
@@ -80,7 +91,9 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     
     // Text view delegate methods
     func textViewDidBeginEditing(textView: UITextView) {
-        clearPlaceholderText()
+        if (tweetReplyingTo == nil) { // clear text when its not a reply
+            clearPlaceholderText()
+        }
     }
     
     func textViewDidChange(textView: UITextView) {

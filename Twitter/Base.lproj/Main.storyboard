@@ -373,6 +373,7 @@
                         <outlet property="screenNameLabel" destination="deW-EO-cLr" id="X3r-Cs-KmC"/>
                         <outlet property="tweetText" destination="iOc-PX-O1i" id="f2o-Bj-2Eh"/>
                         <outlet property="userNameLabel" destination="4Rh-t5-HgI" id="4vG-Si-Nq8"/>
+                        <segue destination="IlM-82-mRO" kind="presentation" identifier="replyToTweetSegue" id="X9k-OX-ab1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNH-Cs-YzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -549,4 +550,7 @@
         <image name="reply" width="16" height="16"/>
         <image name="retweet" width="19" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="X9k-OX-ab1"/>
+    </inferredMetricsTieBreakers>
 </document>

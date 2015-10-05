@@ -38,6 +38,9 @@ class TweetCell: UITableViewCell {
             
             let favoriteImageToShow = (tweet!.didUserFavorite) ? "favorite_on" : "favorite"
             favoriteImageView.image = UIImage(named: favoriteImageToShow)
+            
+            let replyImageToShow = (tweet!.didUserReply) ? "reply_hover" : "reply"
+            replyImageView.image = UIImage(named: replyImageToShow)
         }
     }
     

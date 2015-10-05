@@ -71,6 +71,15 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         }
     }
     
+    func unFavoriteTweet(tweetId: String!, completion: (error: NSError?) -> ()) {
+        let parameters = ["id" : tweetId]
+        POST("/1.1/favorites/destroy.json", parameters: parameters, constructingBodyWithBlock: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            completion(error: nil)
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(error: error)
+        }
+    }
+    
     func openUrl(url: NSURL) {        
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
             self.requestSerializer.saveAccessToken(accessToken)
@@ -84,6 +93,31 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         }) { (error: NSError!) -> Void in
             loginCompletion?(user: nil, error: error)
         }
+    }
+    
+    func unRetweet(tweet: Tweet, completion: (error: NSError?) -> ()) {
+        let retweetedStatus = tweet.dictionary["retweeted_status"] as? NSDictionary
+        let originalTweetId = (retweetedStatus == nil)
+                                ? tweet.idString!
+                                : retweetedStatus!["id_str"] as! String
+        var parameters = [String : AnyObject]()
+        parameters["include_my_retweet"] = 1
+        GET("/1.1/statuses/show.json?id=\(originalTweetId)", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let responseDict = response as! NSDictionary
+            let currentUserRetweet = responseDict["current_user_retweet"] as! NSDictionary
+            let myTweetId = currentUserRetweet["id_str"] as! String
+            self.destroyTweet(myTweetId, completion: completion)
+        }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            completion(error: error)
+        }
+    }
+    
+    func destroyTweet(idString: String, completion: (error: NSError?) -> ()) {
+        POST("/1.1/statuses/destroy/\(idString).json", parameters: nil, constructingBodyWithBlock: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            completion(error: nil)
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            completion(error: error)
+        })
     }
     
 }

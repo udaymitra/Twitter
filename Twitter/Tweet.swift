@@ -27,15 +27,19 @@ class Tweet: NSObject {
             retweetCount = retweetCount! + increment
         }
     }
-    
     var didUserFavorite = false {
         didSet {
             let increment = didUserFavorite ? 1 : -1
             favoriteCount = favoriteCount! + increment
         }
     }
+    var didUserReply = false
+    private(set) var dictionary: NSDictionary!
     
     init(dictionary: NSDictionary) {
+        // save dictionary to use in the future
+        self.dictionary = dictionary
+        
         author = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
 
@@ -56,6 +60,7 @@ class Tweet: NSObject {
         var tweetArray = [Tweet]()
         for dict in array {
             tweetArray.append(Tweet(dictionary: dict))
+            print("DICTIONARY = \(dict)")
         }
         return tweetArray
     }

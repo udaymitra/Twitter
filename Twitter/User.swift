@@ -59,7 +59,15 @@ class User: NSObject {
     func favoriteTweet(tweetId: String!, completion: (error: NSError?) -> ()) {
         TwitterClient.sharedInstance.favoriteTweet(tweetId, completion: completion)
     }
-
+    
+    func unFavoriteTweet(tweetId: String!, completion: (error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.unFavoriteTweet(tweetId, completion: completion)
+    }
+    
+    func unRetweet(tweet: Tweet, completion: (error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.unRetweet(tweet, completion: completion)
+    }
+    
     func logout() {
         User.currentUser = nil
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()

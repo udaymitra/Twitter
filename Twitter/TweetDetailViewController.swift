@@ -10,9 +10,10 @@ import UIKit
 
 @objc protocol TweetDetailDelegate {
     optional func didReturnFromTweetDetail(currentTweetIndexPath: NSIndexPath)
+    optional func newTweetCreated(tweet: Tweet?, error: NSError?)
 }
 
-class TweetDetailViewController: UIViewController {
+class TweetDetailViewController: UIViewController, NewTweetCreatedDelegate {
     @IBOutlet weak private var profileImageView: UIImageView!
     @IBOutlet weak private var userNameLabel: UILabel!
     @IBOutlet weak private var screenNameLabel: UILabel!
@@ -42,6 +43,7 @@ class TweetDetailViewController: UIViewController {
         loadDynamicUiElements()
 
         replyImageView.userInteractionEnabled = true
+        replyImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("onReplyTap:")))
         
         retweetImageView.userInteractionEnabled = true
         retweetImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("onRetweetTap:")))
@@ -53,6 +55,7 @@ class TweetDetailViewController: UIViewController {
     private func loadDynamicUiElements() {
         showRetweetIcon()
         showFavoriteIcon()
+        showReplyIcon()
         numRetweetsLabel.text = "\(tweet.retweetCount!)"
         numFavoritesLabel.text = "\(tweet.favoriteCount!)"
     }
@@ -65,6 +68,11 @@ class TweetDetailViewController: UIViewController {
     private func showFavoriteIcon() {
         let imageToShow = (tweet!.didUserFavorite) ? "favorite_on" : "favorite"
         self.favoriteImageView.image = UIImage(named: imageToShow)
+    }
+    
+    private func showReplyIcon() {
+        let imageToShow = (tweet!.didUserReply) ? "reply_hover" : "reply"
+        self.replyImageView.image = UIImage(named: imageToShow)
     }
     
     // actions
@@ -85,6 +93,11 @@ class TweetDetailViewController: UIViewController {
             })
         } else {
             // TODO : Un retweet
+            User.currentUser?.unRetweet(tweet, completion: { (error) -> () in
+                if (error != nil) {
+                    print("Error Un-retweeting")
+                }
+            })
         }
     }
     
@@ -99,8 +112,40 @@ class TweetDetailViewController: UIViewController {
                 }
             })
         } else {
-            // TODO: un favorite
-            
+            // un favorite
+            User.currentUser?.unFavoriteTweet(tweet.idString, completion: { (error) -> () in
+                if (error != nil) {
+                    print("Error un favoriting")
+                }
+            })
+        }
+    }
+    
+    @IBAction func onReplyTap(gestureRecognizer: UITapGestureRecognizer) {
+        self.performSegueWithIdentifier("replyToTweetSegue", sender: self)
+    }
+    
+    // reply to tweet delegate
+    func newTweetCreated(tweet: Tweet?, error: NSError?) {
+        if (error != nil) {
+            print("Error replying to tweet")
+        }
+        self.tweet!.didUserReply = true
+        // tell list view about newly created tweet from reply
+        delegate?.newTweetCreated!(tweet, error: error)
+        
+        loadDynamicUiElements()
+    }
+    
+    // Segue handler
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        let navigationController = segue.destinationViewController as! UINavigationController
+        
+        if (segue.identifier == "replyToTweetSegue") {
+            let newTweetViewController = navigationController.viewControllers[0] as! NewTweetViewController
+            newTweetViewController.delegate = self
+            newTweetViewController.tweetReplyingTo = self.tweet
         }
     }
 }
