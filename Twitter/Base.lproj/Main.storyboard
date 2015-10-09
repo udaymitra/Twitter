@@ -45,12 +45,112 @@
                     </view>
                     <navigationItem key="navigationItem" id="VF6-6o-3Xb"/>
                     <connections>
-                        <segue destination="E7M-DG-L0R" kind="presentation" identifier="loginSegue" id="l2c-be-V80"/>
+                        <segue destination="gdy-BI-Jeu" kind="presentation" identifier="hamburgerSegue" id="w4K-sY-Nfz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="905" y="210"/>
+            <point key="canvasLocation" x="453" y="210"/>
+        </scene>
+        <!--Hamburger View Controller-->
+        <scene sceneID="TNV-dL-tNL">
+            <objects>
+                <viewController id="u7v-Pw-oMT" customClass="HamburgerViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9mv-Vg-lkj"/>
+                        <viewControllerLayoutGuide type="bottom" id="cfv-IA-MxO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yR4-eI-WxY" userLabel="Container View">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cec-cI-pno">
+                                <rect key="frame" x="10" y="72" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="KpA-FY-gF5"/>
+                                    <constraint firstAttribute="height" constant="100" id="RxP-yx-aPp"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkv-BL-lDa">
+                                <rect key="frame" x="120" y="94" width="86" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@screenName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49a-78-E1Y">
+                                <rect key="frame" x="120" y="124.5" width="100" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.51891121029999998" green="0.51891121029999998" blue="0.51891121029999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhT-IJ-U49">
+                                <rect key="frame" x="10" y="196" width="44" height="30"/>
+                                <state key="normal" title="Profile">
+                                    <color key="titleColor" red="0.51891121029999998" green="0.51891121029999998" blue="0.51891121029999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onProfileViewTap:" destination="u7v-Pw-oMT" eventType="touchUpInside" id="J30-bQ-yJ0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9D-er-QhA">
+                                <rect key="frame" x="10" y="234" width="58" height="30"/>
+                                <state key="normal" title="Timeline">
+                                    <color key="titleColor" red="0.51891121029999998" green="0.51891121029999998" blue="0.51891121029999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTimelineTap:" destination="u7v-Pw-oMT" eventType="touchUpInside" id="2ip-9H-KN4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWx-pY-xzV">
+                                <rect key="frame" x="10" y="272" width="64" height="30"/>
+                                <state key="normal" title="Mentions">
+                                    <color key="titleColor" red="0.51891121029999998" green="0.51891121029999998" blue="0.51891121029999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="49a-78-E1Y" firstAttribute="leading" secondItem="cec-cI-pno" secondAttribute="trailing" constant="10" id="1qL-QR-FcV"/>
+                            <constraint firstItem="p9D-er-QhA" firstAttribute="leading" secondItem="yR4-eI-WxY" secondAttribute="leadingMargin" constant="-10" id="4xI-Cb-mPx"/>
+                            <constraint firstItem="KWx-pY-xzV" firstAttribute="top" secondItem="p9D-er-QhA" secondAttribute="bottom" constant="8" id="5LN-4O-QXz"/>
+                            <constraint firstItem="yhT-IJ-U49" firstAttribute="top" secondItem="cec-cI-pno" secondAttribute="bottom" constant="24" id="9WT-WZ-GoK"/>
+                            <constraint firstItem="Pkv-BL-lDa" firstAttribute="leading" secondItem="cec-cI-pno" secondAttribute="trailing" constant="10" id="B5Q-84-sRS"/>
+                            <constraint firstItem="KWx-pY-xzV" firstAttribute="leading" secondItem="yR4-eI-WxY" secondAttribute="leadingMargin" constant="-10" id="B9a-8w-Fii"/>
+                            <constraint firstItem="cec-cI-pno" firstAttribute="leading" secondItem="yR4-eI-WxY" secondAttribute="leading" constant="10" id="Doe-8a-DSW"/>
+                            <constraint firstItem="cec-cI-pno" firstAttribute="top" secondItem="9mv-Vg-lkj" secondAttribute="bottom" constant="8" id="FW7-C9-fz1"/>
+                            <constraint firstItem="yhT-IJ-U49" firstAttribute="leading" secondItem="yR4-eI-WxY" secondAttribute="leadingMargin" constant="-10" id="MUv-7U-kqp"/>
+                            <constraint firstItem="p9D-er-QhA" firstAttribute="top" secondItem="yhT-IJ-U49" secondAttribute="bottom" constant="8" id="Wsp-Ya-Iac"/>
+                            <constraint firstItem="49a-78-E1Y" firstAttribute="top" secondItem="Pkv-BL-lDa" secondAttribute="bottom" constant="10" id="gc6-dH-WIS"/>
+                            <constraint firstItem="Pkv-BL-lDa" firstAttribute="top" secondItem="9mv-Vg-lkj" secondAttribute="bottom" constant="30" id="n7y-SK-hbA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z83-1t-3PD"/>
+                    <connections>
+                        <outlet property="containerView" destination="yR4-eI-WxY" id="d5J-rr-E28"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sUk-g7-qJN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1707" y="947"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="7nN-IZ-jWp">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="n0P-Qd-V9e" customClass="ProfileViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NRQ-x2-FuF"/>
+                        <viewControllerLayoutGuide type="bottom" id="afC-8x-Xyx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TJe-yi-DZg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.81960784310000001" green="0.0" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rfe-dR-QSv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6qD-hM-fUq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1707" y="1727"/>
         </scene>
         <!--Tweets View Controller-->
         <scene sceneID="3qV-Rh-OuU">
@@ -85,7 +185,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bloomberg Business" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHU-lV-Rp4">
                                                     <rect key="frame" x="64" y="8" width="135.5" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="@business" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npf-Nw-EOz">
@@ -103,7 +203,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How the glass on smartphone screens has made one man $7 billion. Why shouldn't you sit - or stand - too much" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CL-uy-B1o">
                                                     <rect key="frame" x="64" y="27" width="528" height="33.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply" translatesAutoresizingMaskIntoConstraints="NO" id="wXZ-9G-8FY">
@@ -249,7 +349,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bloomberg Business" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rh-t5-HgI">
                                 <rect key="frame" x="66" y="74" width="135.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="@business" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deW-EO-cLr">
@@ -261,7 +361,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How the glass on smartphone screens has made one man $7 billion. Why shouldn't you sit - or stand - too much" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOc-PX-O1i">
                                 <rect key="frame" x="10" y="142" width="580" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y0K-Sn-1O9">
@@ -281,7 +381,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="311" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iho-kE-phO">
                                 <rect key="frame" x="10" y="202" width="23" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RETWEETS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNI-We-23I">
@@ -293,7 +393,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="311" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QE6-IA-LPd">
                                 <rect key="frame" x="138" y="202" width="23" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIQ-cW-CJD">
@@ -394,7 +494,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cNH-Cs-YzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2489" y="937"/>
+            <point key="canvasLocation" x="3301" y="937"/>
         </scene>
         <!--New Tweet View Controller-->
         <scene sceneID="1bZ-Ea-e56">
@@ -501,7 +601,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eo9-Wb-hyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="93" y="210"/>
+            <point key="canvasLocation" x="-359" y="210"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JC5-fp-MNH">
@@ -555,7 +655,43 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9Y-vD-u7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1677" y="937"/>
+            <point key="canvasLocation" x="2489" y="937"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="USW-ZB-KmY">
+            <objects>
+                <navigationController storyboardIdentifier="HamburgerAndNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="gdy-BI-Jeu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rkd-xo-fVd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="u7v-Pw-oMT" kind="relationship" relationship="rootViewController" id="eoT-QQ-g82"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EJe-7g-bnj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="905" y="957"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gmz-Va-Jgo">
+            <objects>
+                <navigationController storyboardIdentifier="ProfileViewAndNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Kjb-jZ-rrt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G5I-L6-ZGc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="n0P-Qd-V9e" kind="relationship" relationship="rootViewController" id="Lig-Yf-4ev"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eyn-WH-Eoy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="895" y="1727"/>
         </scene>
     </scenes>
     <resources>
@@ -568,6 +704,6 @@
         <image name="retweet" width="19" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X9k-OX-ab1"/>
+        <segue reference="0Uk-D7-7Mg"/>
     </inferredMetricsTieBreakers>
 </document>

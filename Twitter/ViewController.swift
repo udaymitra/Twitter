@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBAction func onLogin(sender: AnyObject) {
         User.loginWithCompletion{ (user, error) -> () in
             if (user != nil) {
-                self.performSegueWithIdentifier("loginSegue", sender: self)
+                self.performSegueWithIdentifier("hamburgerSegue", sender: self)
             } else {
                 // TODO: show pop up
                 print("error getting user: \(error)")

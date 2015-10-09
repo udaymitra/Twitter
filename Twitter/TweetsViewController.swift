@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate, TweetDetailDelegate {
+class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate, TweetDetailDelegate {
     var user: User!
     var tweetSourcer: TweetSourcer!
     var refreshControl: UIRefreshControl!
