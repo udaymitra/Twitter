@@ -14,7 +14,7 @@ import UIKit
 
 class HamburgerChildViewController: UIViewController {
     @IBOutlet var mainView: UIView!
-    var startingMainViewCenterX: CGFloat!
+    var startingMainViewCenter: CGPoint!
     weak var hamburgerChildViewDelegate: HamburgerChildViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -26,23 +26,40 @@ class HamburgerChildViewController: UIViewController {
     }
 
     func didPan(panGestureRecognizer: UIPanGestureRecognizer) {
-        if panGestureRecognizer.state == UIGestureRecognizerState.Began {
-            startingMainViewCenterX = mainView.center.x
-        } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
+        switch(panGestureRecognizer.state) {
+        case .Began:
+            startingMainViewCenter = mainView.center
+        case .Changed:
             let translation = panGestureRecognizer.translationInView(view)
             let isMovingRight = panGestureRecognizer.velocityInView(view).x > 0
             if (isMovingRight) {
-                mainView.center.x = startingMainViewCenterX + translation.x
+                mainView.center.x = startingMainViewCenter.x + translation.x
             }
-            let delta = (mainView.center.x - startingMainViewCenterX) / mainView.frame.width
-            if (delta > 0.7) {
-                // jump to hamburger view
-                print("Jump to hamburger view")
-                hamburgerChildViewDelegate?.hamburgerChildViewControllerWantsToClose!(self)
+        case .Cancelled:
+            restoreChildViewWithAnimation()
+        case .Ended:
+            let delta = (mainView.center.x - startingMainViewCenter.x) / mainView.frame.width
+            if (delta > 0.5) {
+                closeChildViewWithAnimation()
+            } else {
+                restoreChildViewWithAnimation()
             }
-        } else if panGestureRecognizer.state == UIGestureRecognizerState.Ended {
-        } else if panGestureRecognizer.state == UIGestureRecognizerState.Cancelled {
-            mainView.center.x = startingMainViewCenterX
+        default:
+            print("default case")
         }
+    }
+    
+    func restoreChildViewWithAnimation() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.mainView.center = self.startingMainViewCenter
+        })
+    }
+    
+    func closeChildViewWithAnimation() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.mainView.center.x = 3 * self.startingMainViewCenter.x
+            }, completion: { (Bool) -> Void in
+                self.hamburgerChildViewDelegate?.hamburgerChildViewControllerWantsToClose!(self)
+        })
     }
 }

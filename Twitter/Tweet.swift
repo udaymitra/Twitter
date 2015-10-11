@@ -54,6 +54,20 @@ class Tweet: NSObject {
         favoriteCount = dictionary["favorite_count"] as? Int
         retweetCount = dictionary["retweet_count"] as? Int
         idString = dictionary["id_str"] as? String
+        
+        if let isFavorited = dictionary["favorited"] as? Bool {
+            if (isFavorited) {
+                didUserFavorite = true
+                favoriteCount = favoriteCount! - 1 // setting didUserFavorite increments fav count by 1 already
+            }
+        }
+        
+        if let isRetweeted = dictionary["retweeted"] as? Bool {
+            if (isRetweeted) {
+                didUserRetweet = true
+                retweetCount = retweetCount! - 1 // setting didUserRetweet increments retweetCount count by 1 already
+            }
+        }
     }
     
     class func parseTweets(array: [NSDictionary]) -> [Tweet] {

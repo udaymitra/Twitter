@@ -23,14 +23,44 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
     
     func homeTimelineWithParams(parameters: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
-        GET("1.1/statuses/home_timeline.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            let tweets = Tweet.parseTweets(response as! [NSDictionary])
-            completion(tweets: tweets, error: nil)
-        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            completion(tweets: nil, error: error)
-        })        
+        getTweetsWithParams("1.1/statuses/home_timeline.json", parameters: parameters, completion: completion)
     }
     
+    func getTweetsWithParams(uri: String, parameters: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        GET(uri, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let tweets = Tweet.parseTweets(response as! [NSDictionary])
+            completion(tweets: tweets, error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(tweets: nil, error: error)
+        })
+    }
+    
+    func getParamsForScreenName(userScreenName: String) -> NSDictionary {
+        var parameters = [String : AnyObject]()
+        parameters["screen_name"] = userScreenName
+        return parameters
+    }
+    
+    func getUserTimeline(userScreenName: String, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        getTweetsWithParams("1.1/statuses/user_timeline.json", parameters: getParamsForScreenName(userScreenName), completion: completion)
+    }
+
+    func getFavorites(userScreenName: String, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        getTweetsWithParams("1.1/favorites/list.json", parameters: getParamsForScreenName(userScreenName), completion: completion)
+    }
+    
+    func getUserPlus(userScreenName: String, completion: (userPlus: UserPlus?, error: NSError?) ->()) {
+        GET("/1.1/users/show.json", parameters: getParamsForScreenName(userScreenName),
+            success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                let userPlus = UserPlus(dictionary: response as! NSDictionary)
+                completion(userPlus: userPlus, error: nil)
+            },
+            failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                completion(userPlus: nil, error: error)
+        })
+        
+    }
+
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         

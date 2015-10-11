@@ -22,7 +22,6 @@ class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, U
         super.viewDidLoad()
         
         // navigation bar icons
-        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
         let centerTwitterImage = UIImage(named: "Twitter_logo_blue_32.png")
         self.navigationItem.titleView = UIImageView(image: centerTwitterImage)
 

@@ -19,9 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (User.currentUser != nil) {
             // Go to the logged in screen
-            let vc = storyboard.instantiateViewControllerWithIdentifier("HamburgerAndNavigationViewController")
+            let vc = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController")
             window?.rootViewController = vc
         }
+        
+        // set status bar content color to white
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         return true
     }
 

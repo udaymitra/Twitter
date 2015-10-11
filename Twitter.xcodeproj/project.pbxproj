@@ -14,6 +14,7 @@
 		042E1F541BC78EC8001F7692 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E1F531BC78EC8001F7692 /* HamburgerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		042E1F561BC78EF0001F7692 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E1F551BC78EF0001F7692 /* ProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		042E1F581BC85E98001F7692 /* HamburgerChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E1F571BC85E98001F7692 /* HamburgerChildViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		042E1F5A1BCA6984001F7692 /* UserPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042E1F591BCA6984001F7692 /* UserPlus.swift */; settings = {ASSET_TAGS = (); }; };
 		045FA6DA1BBBBC7C00A1A2FC /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FA6D91BBBBC7C00A1A2FC /* TwitterClient.swift */; settings = {ASSET_TAGS = (); }; };
 		047180781BBBBBA30080BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047180771BBBBBA30080BE71 /* AppDelegate.swift */; };
 		0471807A1BBBBBA30080BE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047180791BBBBBA30080BE71 /* ViewController.swift */; };
@@ -31,9 +32,10 @@
 		0418DE7E1BBE569D00EBDEB8 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		0418DE801BBF929100EBDEB8 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		0418DE831BBFCE5200EBDEB8 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
-		042E1F531BC78EC8001F7692 /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
-		042E1F551BC78EF0001F7692 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		042E1F571BC85E98001F7692 /* HamburgerChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerChildViewController.swift; sourceTree = "<group>"; };
+		042E1F531BC78EC8001F7692 /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HamburgerViewController.swift; path = ../HamburgerViewController.swift; sourceTree = "<group>"; };
+		042E1F551BC78EF0001F7692 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../ProfileViewController.swift; sourceTree = "<group>"; };
+		042E1F571BC85E98001F7692 /* HamburgerChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HamburgerChildViewController.swift; path = ../HamburgerChildViewController.swift; sourceTree = "<group>"; };
+		042E1F591BCA6984001F7692 /* UserPlus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPlus.swift; sourceTree = "<group>"; };
 		045FA6D51BBBBC2C00A1A2FC /* Twitter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Twitter-Bridging-Header.h"; sourceTree = "<group>"; };
 		045FA6D91BBBBC7C00A1A2FC /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		047180741BBBBBA30080BE71 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 			children = (
 				0418DE7C1BBE556400EBDEB8 /* User.swift */,
 				0418DE7E1BBE569D00EBDEB8 /* Tweet.swift */,
+				042E1F591BCA6984001F7692 /* UserPlus.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -91,9 +94,6 @@
 		0471806B1BBBBBA30080BE71 = {
 			isa = PBXGroup;
 			children = (
-				042E1F571BC85E98001F7692 /* HamburgerChildViewController.swift */,
-				042E1F551BC78EF0001F7692 /* ProfileViewController.swift */,
-				042E1F531BC78EC8001F7692 /* HamburgerViewController.swift */,
 				047180761BBBBBA30080BE71 /* Twitter */,
 				047180751BBBBBA30080BE71 /* Products */,
 				F55D2547C932661B6194D79E /* Pods */,
@@ -112,6 +112,9 @@
 		047180761BBBBBA30080BE71 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				042E1F531BC78EC8001F7692 /* HamburgerViewController.swift */,
+				042E1F551BC78EF0001F7692 /* ProfileViewController.swift */,
+				042E1F571BC85E98001F7692 /* HamburgerChildViewController.swift */,
 				0418DE821BBFCE3C00EBDEB8 /* Views */,
 				0418DE7B1BBE553E00EBDEB8 /* Models */,
 				045FA6D81BBBBC5F00A1A2FC /* API */,
@@ -266,6 +269,7 @@
 				047180781BBBBBA30080BE71 /* AppDelegate.swift in Sources */,
 				042E1F541BC78EC8001F7692 /* HamburgerViewController.swift in Sources */,
 				04F21EC61BC18E6F002BA7A6 /* TweetDetailViewController.swift in Sources */,
+				042E1F5A1BCA6984001F7692 /* UserPlus.swift in Sources */,
 				042E1F581BC85E98001F7692 /* HamburgerChildViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

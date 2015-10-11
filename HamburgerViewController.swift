@@ -15,8 +15,28 @@ class HamburgerViewController: UIViewController, HamburgerChildViewControllerDel
     @IBOutlet var containerView: UIView!
     var selectedViewController: HamburgerChildViewController?
     
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        let currentUser = User.currentUser!
+        userImageView.setImageWithURL(currentUser.profileImageUrl)
+        userImageView.layer.cornerRadius = 3
+        userImageView.clipsToBounds = true
+        
+        userNameLabel.text = currentUser.name
+        screenNameLabel.text = "@\(currentUser.screenName!)"
+        
+        // take to tweets view controller
+        showTweetsViewController()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
 
     @IBAction func onProfileViewTap(sender: AnyObject) {
@@ -25,6 +45,10 @@ class HamburgerViewController: UIViewController, HamburgerChildViewControllerDel
     }
     
     @IBAction func onTimelineTap(sender: AnyObject) {
+        self.showTweetsViewController()
+    }
+    
+    func showTweetsViewController() {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("TweetsViewController") as! TweetsViewController
         selectViewController(vc)
     }
@@ -44,6 +68,8 @@ class HamburgerViewController: UIViewController, HamburgerChildViewControllerDel
             oldViewController.willMoveToParentViewController(nil)
             oldViewController.view.removeFromSuperview()
             oldViewController.removeFromParentViewController()
+            
+            print("closed child view")
         }
     }
 }

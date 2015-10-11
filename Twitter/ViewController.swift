@@ -12,6 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set status bar content color to white
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
     }
 
     override func didReceiveMemoryWarning() {

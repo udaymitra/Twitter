@@ -20,6 +20,8 @@ class User: NSObject {
     private(set) var screenName: String?
     private(set) var profileImageUrl: NSURL?
     private(set) var tagline: String?
+    private(set) var friendsCount: Int?
+    private(set) var followersCount: Int?
     private(set) var dictionary: NSDictionary
     
     init(dictionary: NSDictionary) {
@@ -33,7 +35,11 @@ class User: NSObject {
             profileImageUrl = NSURL(string: profileImageUrlString)
         }
         tagline = dictionary["description"] as? String
+        friendsCount = dictionary["friends_count"] as? Int
+        followersCount = dictionary["followers_count"] as? Int
+        
     }
+    
     
     class func getHighQualityProfileImageUrl(profileUrl: String) -> String {
         var outUrl = profileUrl
