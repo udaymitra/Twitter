@@ -9,6 +9,8 @@
 import UIKit
 
 class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, UITableViewDataSource {
+    var userScreenNameToShowProfile: String!
+    
     var userTweets: [Tweet]?
     var favorites: [Tweet]?
     var userPlus: UserPlus?
@@ -43,8 +45,7 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
     }
     
     func asyncCalls() {
-        let currentUserScreenName = User.currentUser!.screenName!
-        TwitterClient.sharedInstance.getUserPlus(currentUserScreenName) { (userPlus, error) -> () in
+        TwitterClient.sharedInstance.getUserPlus(userScreenNameToShowProfile) { (userPlus, error) -> () in
             if (error == nil) {
                 self.userPlus = userPlus
             } else {
@@ -52,7 +53,7 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
             }
             self.populateView()
         }
-        TwitterClient.sharedInstance.getUserTimeline(currentUserScreenName) { (tweets, error) -> () in
+        TwitterClient.sharedInstance.getUserTimeline(userScreenNameToShowProfile) { (tweets, error) -> () in
             if (error == nil) {
                 self.userTweets = tweets
             } else {
@@ -60,7 +61,7 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
             }
             self.populateView()
         }
-        TwitterClient.sharedInstance.getFavorites(currentUserScreenName) { (tweets, error) -> () in
+        TwitterClient.sharedInstance.getFavorites(userScreenNameToShowProfile) { (tweets, error) -> () in
             if (error == nil) {
                 self.favorites = tweets
             } else {

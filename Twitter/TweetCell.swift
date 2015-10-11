@@ -8,7 +8,12 @@
 
 import UIKit
 
+@objc protocol TweetCellDelegate {
+    optional func tweetCellProfileImageTapped(tweetCell: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
+    var delegate: TweetCellDelegate?
     
     @IBOutlet weak private var userProfileImageView: UIImageView!
     @IBOutlet weak private var userNameLabel: UILabel!
@@ -41,6 +46,10 @@ class TweetCell: UITableViewCell {
             
             let replyImageToShow = (tweet!.didUserReply) ? "reply_hover" : "reply"
             replyImageView.image = UIImage(named: replyImageToShow)
+            
+            userProfileImageView.userInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: "didTapOnProfileImage:")
+            userProfileImageView.addGestureRecognizer(tapGesture)
         }
     }
     
@@ -52,8 +61,9 @@ class TweetCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
+    
+    func didTapOnProfileImage(tapGestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.tweetCellProfileImageTapped!(self)
+    }
 }

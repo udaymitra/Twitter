@@ -13,7 +13,6 @@ import UIKit
 }
 
 class HamburgerChildViewController: UIViewController {
-    @IBOutlet var mainView: UIView!
     var startingMainViewCenter: CGPoint!
     weak var hamburgerChildViewDelegate: HamburgerChildViewControllerDelegate?
 
@@ -22,23 +21,22 @@ class HamburgerChildViewController: UIViewController {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: "didPan:")
         self.view.addGestureRecognizer(panGesture)
-        mainView = self.view
     }
 
     func didPan(panGestureRecognizer: UIPanGestureRecognizer) {
         switch(panGestureRecognizer.state) {
         case .Began:
-            startingMainViewCenter = mainView.center
+            startingMainViewCenter = self.view.center
         case .Changed:
             let translation = panGestureRecognizer.translationInView(view)
             let isMovingRight = panGestureRecognizer.velocityInView(view).x > 0
             if (isMovingRight) {
-                mainView.center.x = startingMainViewCenter.x + translation.x
+                self.view.center.x = startingMainViewCenter.x + translation.x
             }
         case .Cancelled:
             restoreChildViewWithAnimation()
         case .Ended:
-            let delta = (mainView.center.x - startingMainViewCenter.x) / mainView.frame.width
+            let delta = (self.view.center.x - startingMainViewCenter.x) / self.view.frame.width
             if (delta > 0.5) {
                 closeChildViewWithAnimation()
             } else {
@@ -51,13 +49,13 @@ class HamburgerChildViewController: UIViewController {
     
     func restoreChildViewWithAnimation() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.mainView.center = self.startingMainViewCenter
+            self.view.center = self.startingMainViewCenter
         })
     }
     
     func closeChildViewWithAnimation() {
         UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.mainView.center.x = 3 * self.startingMainViewCenter.x
+            self.view.center.x = 3 * self.startingMainViewCenter.x
             }, completion: { (Bool) -> Void in
                 self.hamburgerChildViewDelegate?.hamburgerChildViewControllerWantsToClose!(self)
         })

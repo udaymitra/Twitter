@@ -192,7 +192,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Z83-1t-3PD"/>
                     <connections>
-                        <outlet property="containerView" destination="yR4-eI-WxY" id="d5J-rr-E28"/>
                         <outlet property="screenNameLabel" destination="49a-78-E1Y" id="Vs2-3m-IgY"/>
                         <outlet property="userImageView" destination="cec-cI-pno" id="cdu-AY-6KA"/>
                         <outlet property="userNameLabel" destination="Pkv-BL-lDa" id="5We-yd-u3k"/>
@@ -200,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sUk-g7-qJN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="995"/>
+            <point key="canvasLocation" x="1357" y="959"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="7nN-IZ-jWp">
@@ -419,7 +418,6 @@
                             <constraint firstItem="rQa-XC-SjS" firstAttribute="centerY" secondItem="cZj-71-51C" secondAttribute="centerY" id="4OM-5h-b7p"/>
                             <constraint firstItem="r95-AN-QmQ" firstAttribute="leading" secondItem="n7b-h7-1k2" secondAttribute="trailing" constant="10" id="7vu-DY-ohL"/>
                             <constraint firstItem="cZj-71-51C" firstAttribute="top" secondItem="fXW-ne-TcG" secondAttribute="bottom" constant="10" id="BA8-kj-CUS"/>
-                            <constraint firstItem="ACg-2Q-MAG" firstAttribute="leading" secondItem="TJe-yi-DZg" secondAttribute="leading" id="BNO-6w-D99"/>
                             <constraint firstAttribute="leadingMargin" secondItem="fXW-ne-TcG" secondAttribute="leading" id="CMa-K6-HZr"/>
                             <constraint firstItem="EOb-c7-wSx" firstAttribute="top" secondItem="rQa-XC-SjS" secondAttribute="bottom" constant="10" id="EB6-wQ-g3m"/>
                             <constraint firstItem="afC-8x-Xyx" firstAttribute="top" secondItem="ACg-2Q-MAG" secondAttribute="bottom" id="FKy-hP-4RG"/>
@@ -427,11 +425,13 @@
                             <constraint firstAttribute="trailing" secondItem="ACg-2Q-MAG" secondAttribute="trailing" id="PRJ-Nu-X8B"/>
                             <constraint firstItem="AcI-IN-fJ9" firstAttribute="top" secondItem="TJe-yi-DZg" secondAttribute="top" id="Qbp-Zf-Qac"/>
                             <constraint firstItem="rQa-XC-SjS" firstAttribute="leading" secondItem="cZj-71-51C" secondAttribute="trailing" constant="10" id="SdH-X9-lqJ"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="EOb-c7-wSx" secondAttribute="leading" id="Wti-Bt-Y7J"/>
                             <constraint firstItem="vVQ-xs-naV" firstAttribute="leading" secondItem="TJe-yi-DZg" secondAttribute="leadingMargin" id="eo8-tp-WeZ"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="fXW-ne-TcG" secondAttribute="trailing" id="evF-5W-YCJ"/>
                             <constraint firstItem="ACg-2Q-MAG" firstAttribute="top" secondItem="EOb-c7-wSx" secondAttribute="bottom" constant="10" id="g6N-py-6na"/>
                             <constraint firstItem="r95-AN-QmQ" firstAttribute="centerY" secondItem="n7b-h7-1k2" secondAttribute="centerY" id="gzU-eX-83z"/>
                             <constraint firstItem="vVQ-xs-naV" firstAttribute="top" secondItem="AcI-IN-fJ9" secondAttribute="bottom" constant="10" id="ka2-MT-rQU"/>
+                            <constraint firstItem="ACg-2Q-MAG" firstAttribute="leading" secondItem="TJe-yi-DZg" secondAttribute="leading" id="oVR-xx-DAB"/>
                             <constraint firstItem="fXW-ne-TcG" firstAttribute="top" secondItem="eAY-PO-q8K" secondAttribute="bottom" constant="8" id="p0b-fr-2Qw"/>
                             <constraint firstItem="eAY-PO-q8K" firstAttribute="top" secondItem="dYg-Cg-ARy" secondAttribute="bottom" constant="2" id="sNZ-2v-oYl"/>
                             <constraint firstAttribute="trailing" secondItem="AcI-IN-fJ9" secondAttribute="trailing" id="teW-c3-Qf8"/>
@@ -636,6 +636,7 @@
                         <outlet property="tableView" destination="hdZ-OI-rAP" id="wql-bq-FVf"/>
                         <segue destination="IlM-82-mRO" kind="presentation" identifier="newTweetSegue" modalTransitionStyle="coverVertical" id="0Uk-D7-7Mg"/>
                         <segue destination="7L1-ow-qVl" kind="presentation" identifier="tweetDetailSegue" modalTransitionStyle="flipHorizontal" id="xdn-sH-1tT"/>
+                        <segue destination="n0P-Qd-V9e" kind="presentation" identifier="profileViewSegue" id="uqH-Vh-8G8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Onf-6I-ibg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -952,7 +953,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n9Y-vD-u7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2489" y="937"/>
+            <point key="canvasLocation" x="2476" y="1289"/>
         </scene>
     </scenes>
     <resources>

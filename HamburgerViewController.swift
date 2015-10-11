@@ -11,10 +11,9 @@ import UIKit
 let TWEETS:String = "tweets"
 let PROFILE:String = "profile"
 
-class HamburgerViewController: UIViewController, HamburgerChildViewControllerDelegate {
+class HamburgerViewController: HamburgerViewParentController {
     @IBOutlet var containerView: UIView!
-    var selectedViewController: HamburgerChildViewController?
-    
+
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
@@ -41,6 +40,7 @@ class HamburgerViewController: UIViewController, HamburgerChildViewControllerDel
 
     @IBAction func onProfileViewTap(sender: AnyObject) {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        vc.userScreenNameToShowProfile = User.currentUser!.screenName
         selectViewController(vc)
     }
     
@@ -53,23 +53,4 @@ class HamburgerViewController: UIViewController, HamburgerChildViewControllerDel
         selectViewController(vc)
     }
     
-    func selectViewController(viewController: HamburgerChildViewController) {
-        self.addChildViewController(viewController)
-        viewController.view.frame = self.containerView.bounds
-        viewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.containerView.addSubview(viewController.view)
-        viewController.didMoveToParentViewController(self)
-        selectedViewController = viewController
-        selectedViewController!.hamburgerChildViewDelegate = self
     }
-    
-    func hamburgerChildViewControllerWantsToClose(childViewController: HamburgerChildViewController) {
-        if let oldViewController = selectedViewController {
-            oldViewController.willMoveToParentViewController(nil)
-            oldViewController.view.removeFromSuperview()
-            oldViewController.removeFromParentViewController()
-            
-            print("closed child view")
-        }
-    }
-}

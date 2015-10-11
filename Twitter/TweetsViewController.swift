@@ -8,12 +8,13 @@
 
 import UIKit
 
-class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate, TweetDetailDelegate {
+class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, UITableViewDataSource, NewTweetCreatedDelegate, TweetDetailDelegate, TweetCellDelegate, HamburgerChildViewControllerDelegate {
     var user: User!
     var tweetSourcer: TweetSourcer!
     var refreshControl: UIRefreshControl!
     var fetchOlderTweetsInProgress = false
     var currentTweetIndexPath: NSIndexPath!
+    var currentTweet: Tweet!
     
     @IBOutlet weak var topBarUIView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -72,6 +73,7 @@ class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, U
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
         cell.tweet = self.tweetSourcer.tweets![indexPath.row]
+        cell.delegate = self
         
         // INFINITE SCROLL
         // check if we should load more older tweets
@@ -97,6 +99,7 @@ class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.currentTweetIndexPath = indexPath
+        self.currentTweet = tweetSourcer.tweets![currentTweetIndexPath.row]
         self.performSegueWithIdentifier("tweetDetailSegue", sender: self)
     }
     
@@ -115,18 +118,34 @@ class TweetsViewController: HamburgerChildViewController, UITableViewDelegate, U
         tableView.reloadRowsAtIndexPaths([currentTweetIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
+    // Tweet Cell Profile Image tapped delegate
+    func tweetCellProfileImageTapped(tweetCell: TweetCell) {
+        self.currentTweet = tweetCell.tweet
+        self.performSegueWithIdentifier("profileViewSegue", sender: self)
+    }
+    
+    // delegate for view that we open when cell profile image is tapped
+    func hamburgerChildViewControllerWantsToClose(childViewController: HamburgerChildViewController) {
+        childViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        let navigationController = segue.destinationViewController as! UINavigationController
 
         if (segue.identifier == "newTweetSegue") {
+            let navigationController = segue.destinationViewController as! UINavigationController
             let newTweetViewController = navigationController.viewControllers[0] as! NewTweetViewController
             newTweetViewController.delegate = self
         } else if (segue.identifier == "tweetDetailSegue") {
+            let navigationController = segue.destinationViewController as! UINavigationController
             let tweetDetailViewController = navigationController.viewControllers[0] as! TweetDetailViewController
-            tweetDetailViewController.tweet = tweetSourcer.tweets![currentTweetIndexPath.row]
+            tweetDetailViewController.tweet = currentTweet
             tweetDetailViewController.currentTweetIndexPath = currentTweetIndexPath
             tweetDetailViewController.delegate = self
+        } else if (segue.identifier == "profileViewSegue") {
+            let profileViewController = segue.destinationViewController as! ProfileViewController
+            profileViewController.userScreenNameToShowProfile = currentTweet.author?.screenName
+            profileViewController.hamburgerChildViewDelegate = self
         }
-    }    
+    }
 }
