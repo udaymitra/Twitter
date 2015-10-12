@@ -1,3 +1,32 @@
+### Week 4 Project: Twitter Redux
+
+Time spent 20 hours
+
+I spent almost 8 hours to get paging working in profile view.
+Spent 6 hours to get this working with scroll view. Clearly was doing something wrong there.
+The last 2 hours I tried switching that to table view with custom cells for banner and profile details. Ran into some edge cases with states for the segmented controller.
+
+Unfortunately, I could not make much headway into optional items this time.
+
+###Implemented the following:
+
+- Hamburger menu
+  - Dragging anywhere in the view should reveal the menu.
+  - The menu should include links to your profile, the home timeline, and the mentions view.
+
+- Profile page
+  - Contains the user header view
+  - Contains a section with the users basic stats: # tweets, # followers, # friends, # favorites
+  - You can see users tweets and favorites in the profile page (Additional)
+
+- Home Timeline
+  - Tapping on a user image should brings up that user's profile page
+
+### Walkthrough:
+
+![alt tag](https://github.com/udaymitra/Twitter/blob/master/walkthrough2.gif)
+
+
 ### Twitter
 
 Twitter client implementation in swift
