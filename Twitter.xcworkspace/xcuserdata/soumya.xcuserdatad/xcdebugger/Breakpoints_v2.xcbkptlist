@@ -346,11 +346,11 @@
                   moduleName = "Twitter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/soumya/Documents/learn/xcodeprojects/Twitter/Twitter/TwitterClient.swift"
-                  timestampString = "466286567.464903"
+                  timestampString = "466323383.860916"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "135"
-                  endingLineNumber = "135"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
                   offsetFromSymbolStart = "1735">
                </Location>
                <Location
@@ -361,11 +361,11 @@
                   moduleName = "Twitter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/soumya/Documents/learn/xcodeprojects/Twitter/Twitter/TwitterClient.swift"
-                  timestampString = "466286567.465114"
+                  timestampString = "466323383.861118"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
+                  startingLineNumber = "140"
+                  endingLineNumber = "140"
                   offsetFromSymbolStart = "27">
                </Location>
             </Locations>
@@ -393,13 +393,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ProfileViewController.swift"
-            timestampString = "466305275.959307"
+            filePath = "Twitter/ProfileSegmentCell.swift"
+            timestampString = "466321989.428291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "populateView()"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "tweetsFavsControllerChanged(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProfileViewController.swift"
+            timestampString = "466323007.769747"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "tweetsFavsControllerChanged(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
