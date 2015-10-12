@@ -13,12 +13,14 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
     
     var userTweets: [Tweet]?
     var favorites: [Tweet]?
+    var mentions: [Tweet]?
     var userPlus: UserPlus?
     var tweetsToShow: [Tweet]? {
         didSet {
             tweetsTableView.reloadData()
         }
     }
+    var isMentionsScreen: Bool = false
 
     @IBOutlet weak var bannerImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -40,7 +42,14 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
         tweetsTableView.estimatedRowHeight = 100
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
-        self.tweetsFavsSegmentedControl.selectedSegmentIndex = 0
+        if (isMentionsScreen) {
+            tweetsFavsSegmentedControl.selectedSegmentIndex = 2
+            tweetsFavsSegmentedControl.hidden = true
+        } else {
+            tweetsFavsSegmentedControl.removeSegmentAtIndex(2, animated: false)
+            self.tweetsFavsSegmentedControl.selectedSegmentIndex = 0
+        }
+
         setTweetsToShow()
     }
     
@@ -53,21 +62,33 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
             }
             self.populateView()
         }
-        TwitterClient.sharedInstance.getUserTimeline(userScreenNameToShowProfile) { (tweets, error) -> () in
-            if (error == nil) {
-                self.userTweets = tweets
-            } else {
-                print("Error getting user timeline")
+        if (isMentionsScreen && userScreenNameToShowProfile == User.currentUser?.screenName!) {
+            let params = [String : AnyObject]()
+            TwitterClient.sharedInstance.getMentions(params, completion: { (tweets, error) -> () in
+                if (error == nil) {
+                    self.mentions = tweets
+                } else {
+                    print("Error getting mentions")
+                }
+                self.populateView()
+            })
+        } else {
+            TwitterClient.sharedInstance.getUserTimeline(userScreenNameToShowProfile) { (tweets, error) -> () in
+                if (error == nil) {
+                    self.userTweets = tweets
+                } else {
+                    print("Error getting user timeline")
+                }
+                self.populateView()
             }
-            self.populateView()
-        }
-        TwitterClient.sharedInstance.getFavorites(userScreenNameToShowProfile) { (tweets, error) -> () in
-            if (error == nil) {
-                self.favorites = tweets
-            } else {
-                print("Error getting favorites")
+            TwitterClient.sharedInstance.getFavorites(userScreenNameToShowProfile) { (tweets, error) -> () in
+                if (error == nil) {
+                    self.favorites = tweets
+                } else {
+                    print("Error getting favorites")
+                }
+                self.populateView()
             }
-            self.populateView()
         }
     }
     
@@ -83,9 +104,12 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
             
             tweetsFavsSegmentedControl.setTitle("Tweets \(userPlusObject.tweetsCount!)", forSegmentAtIndex: 0)
             tweetsFavsSegmentedControl.setTitle("Favorites \(userPlusObject.favoritesCount!)", forSegmentAtIndex: 1)
+            if let mentionsObj = mentions {
+                tweetsFavsSegmentedControl.setTitle("Mentions \(mentionsObj.count)", forSegmentAtIndex: 2)
+            }
         }
         
-        if (self.favorites != nil || self.userTweets != nil) {
+        if (self.favorites != nil || self.userTweets != nil || self.mentions != nil) {
             setTweetsToShow()
         }
     }
@@ -102,9 +126,16 @@ class ProfileViewController: HamburgerChildViewController, UITableViewDelegate, 
     }
     
     func setTweetsToShow() {
-        tweetsToShow = tweetsFavsSegmentedControl.selectedSegmentIndex == 0
-            ? userTweets
-            : favorites
+        switch(tweetsFavsSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            tweetsToShow = userTweets
+        case 1:
+            tweetsToShow = favorites
+        case 2:
+            tweetsToShow = mentions
+        default:
+            print("Invalid section selection")
+        }
     }
 
     @IBAction func tweetsFavsControllerChanged(sender: AnyObject) {

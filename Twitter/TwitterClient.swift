@@ -49,6 +49,10 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         getTweetsWithParams("1.1/favorites/list.json", parameters: getParamsForScreenName(userScreenName), completion: completion)
     }
     
+    func getMentions(parameters: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        getTweetsWithParams("1.1/statuses/mentions_timeline.json", parameters: parameters, completion: completion)
+    }
+    
     func getUserPlus(userScreenName: String, completion: (userPlus: UserPlus?, error: NSError?) ->()) {
         GET("/1.1/users/show.json", parameters: getParamsForScreenName(userScreenName),
             success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in

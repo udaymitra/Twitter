@@ -157,6 +157,9 @@
                                 <state key="normal" title="Mentions">
                                     <color key="titleColor" red="0.51891121029999998" green="0.51891121029999998" blue="0.51891121029999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onMentionsTap:" destination="u7v-Pw-oMT" eventType="touchUpInside" id="qlS-nt-7xp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -263,10 +266,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EOb-c7-wSx">
-                                <rect key="frame" x="20" y="361" width="139" height="29"/>
+                                <rect key="frame" x="20" y="361" width="212" height="29"/>
                                 <segments>
                                     <segment title="Tweets"/>
                                     <segment title="Favorites"/>
+                                    <segment title="Mentions"/>
                                 </segments>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>

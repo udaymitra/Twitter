@@ -41,6 +41,7 @@ class HamburgerViewController: HamburgerViewParentController {
     @IBAction func onProfileViewTap(sender: AnyObject) {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
         vc.userScreenNameToShowProfile = User.currentUser!.screenName
+        vc.isMentionsScreen = false
         selectViewController(vc)
     }
     
@@ -53,4 +54,12 @@ class HamburgerViewController: HamburgerViewParentController {
         selectViewController(vc)
     }
     
+    @IBAction func onMentionsTap(sender: AnyObject) {
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        vc.userScreenNameToShowProfile = User.currentUser!.screenName
+        vc.isMentionsScreen = true
+        selectViewController(vc)
+
     }
+    
+}
